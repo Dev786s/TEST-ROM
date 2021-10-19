@@ -14,11 +14,7 @@ jobs:
 
       - uses: rokibhasansagar/slimhub_actions@main
 
- 
-
-      
-
-      - name: Re-install nodejs and npm
+      - name: ADDING ADITIONAL FILES
 
         run: |
 
@@ -30,7 +26,36 @@ jobs:
 
              sudo apt install bc bison build-essential ccache curl flex g++-multilib gcc-multilib git gnupg gperf imagemagick lib32ncurses5-dev lib32readline-dev lib32z1-dev liblz4-tool libncurses5-dev libsdl1.2-dev libssl-dev libwxgtk3.0-gtk3-dev libxml2 libxml2-utils lzop pngcrush rsync schedtool squashfs-tools xsltproc zip zlib1g-dev
 
+          - name: Init source repo
+
+              run: |
            curl -O https://storage.googleapis.com/git-repo-downloads/repo
+            python repo init --depth=1 --no-repo-verify -u git://github.com/lighthouse-os/manifest.git -b sailboat -g default,-mips,-darwin,-notdefault
+  
+         
+      - name: Clone device repo
+
+        run: |
+
+          git clone https://github.com/Dev786s/local-manifest.git --depth 1 -b main .repo/local_manifests
+
+      
+        
+      - name: Start sync
+
+        run: |
+
+          python repo sync -c --force-sync --no-tags --no-clone-bundle -j1 --optimized-fetch --prune
+
+      - name: test rum
+
+        run: |    
+           build/envsetup.sh
+           make bootimage
+
+           make sepolicy
+
+           make init
 
              
 
@@ -38,53 +63,28 @@ jobs:
 
                 
 
-      - name: Init source repo
-
-        run: |
-
-          
-
+  
+                
             
 
             
 
           
 
-            python repo init --depth=1 --no-repo-verify -u git://github.com/lighthouse-os/manifest.git -b sailboat -g default,-mips,-darwin,-notdefault
 
  
 
            
 
-      - name: Clone device repo
-
-        run: |
-
-          git clone https://github.com/Dev786s/local-manifest.git --depth 1 -b main .repo/local_manifests
-
-      - name: Start sync
-
-        run: |
-
-          python repo sync -c --force-sync --no-tags --no-clone-bundle -j1 --optimized-fetch --prune
 
           
 
-      - name: test rum
-
-        run: |    
-
+      
           
 
           
 
          
-
-          make bootimage
-
-          make sepolicy
-
-          make init
 
 
 
