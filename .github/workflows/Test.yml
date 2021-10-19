@@ -30,7 +30,7 @@ jobs:
 
               run: |
            curl -O https://storage.googleapis.com/git-repo-downloads/repo
-            python repo init --depth=1 --no-repo-verify -u git://github.com/lighthouse-os/manifest.git -b sailboat -g default,-mips,-darwin,-notdefault
+             repo init --depth=1 --no-repo-verify -u git://github.com/lighthouse-os/manifest.git -b sailboat -g default,-mips,-darwin,-notdefault
   
          
       - name: Clone device repo
@@ -45,7 +45,7 @@ jobs:
 
         run: |
 
-          python repo sync -c --force-sync --no-tags --no-clone-bundle -j1 --optimized-fetch --prune
+           repo sync -c --force-sync --no-tags --no-clone-bundle -j1 --optimized-fetch --prune
 
       - name: test rum
 
