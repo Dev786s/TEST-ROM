@@ -30,7 +30,7 @@ jobs:
 
               run: |
            curl -O https://storage.googleapis.com/git-repo-downloads/repo
-             repo init --depth=1 --no-repo-verify -u git://github.com/lighthouse-os/manifest.git -b sailboat -g default,-mips,-darwin,-notdefault
+            python repo init --depth=1 --no-repo-verify -u git://github.com/lighthouse-os/manifest.git -b sailboat -g default,-mips,-darwin,-notdefault
   
          
       - name: Clone device repo
