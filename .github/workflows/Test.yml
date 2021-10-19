@@ -18,21 +18,22 @@ jobs:
 
         run: |
 
-          curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+          sudo apt install git
 
-          
+           cd ~/
 
-           
+           git clone https://github.com/akhilnarang/scripts
 
-             sudo apt install bc bison build-essential ccache curl flex g++-multilib gcc-multilib git gnupg gperf imagemagick lib32ncurses5-dev lib32readline-dev lib32z1-dev liblz4-tool libncurses5-dev libsdl1.2-dev libssl-dev libwxgtk3.0-gtk3-dev libxml2 libxml2-utils lzop pngcrush rsync schedtool squashfs-tools xsltproc zip zlib1g-dev
+          cd scripts
 
+          ./setup/android_build_env.sh
           - name: Init source repo
 
-              run: |
-           curl -O https://storage.googleapis.com/git-repo-downloads/repo
-            python repo init --depth=1 --no-repo-verify -u git://github.com/lighthouse-os/manifest.git -b sailboat -g default,-mips,-darwin,-notdefault
-  
-         
+            run: |
+           
+            repo init depth=1 --no-repo-verify -u git://github.com/lighthouse-os/manifest.git -b sailboat -g default,-mips,-darwin,-notdefault
+   
+             repo sync -c --force-sync --no-tags --no-clone-bundle -j1 --optimized-fetch --prune
       - name: Clone device repo
 
         run: |
@@ -45,7 +46,7 @@ jobs:
 
         run: |
 
-           repo sync -c --force-sync --no-tags --no-clone-bundle -j1 --optimized-fetch --prune
+           
 
       - name: test rum
 
